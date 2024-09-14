@@ -20,6 +20,10 @@ def filter_words(definition, top_words):
     else:
         return True
     
+def save_to_file(term, definition):
+    with open("saved_definitions.txt", 'a') as file: # Opening in append
+        file.write(term + " - " + definition)
+        return True
 
 def main():
     # Create words
@@ -45,6 +49,12 @@ def main():
                 print(word)
         else:
             print("This is your definition:\n" + term + ": " + definition)
+            print("Save? (y/n)")
+            ans = input(">>> ")
+            
+            # if the definition is a good one you can save it
+            if ans is 'y':
+                save_to_file(term, definition)
 
 if __name__ == "__main__":
     main()
