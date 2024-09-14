@@ -12,7 +12,7 @@ def filter_words(definition, top_words):
     fancy_words.clear()
 
     for word in words:
-        if word not in top_words:
+        if word.lower() not in top_words:
             fancy_words.append(word)
     # Keep track if a "fancy" word is used
     if len(fancy_words) > 0:
@@ -29,22 +29,22 @@ def main():
     os.system('cls' if os.name == 'nt' else 'clear')
     
     while True:
-        print("/nEnter term (or type 'exit' to quit):")
+        print("Enter term (or type 'exit' to quit).")
         term = input(">>> ")
 
         if term.lower() == 'exit':
             break
         
-        print("/nEnter definition for " + term)
+        print("Enter definition for " + term + ".")
         definition = input(">>> ")
 
-    # Filter words
-    if filter_words(definition, top_words) is False:
-        print("The following words should not be used:")
-        for word in fancy_words:
-            print(word)
-    else:
-        print("This is your definition:\n" + term + ": " + definition)
+        # Filter words
+        if filter_words(definition, top_words) is False:
+            print("The following words should not be used:")
+            for word in fancy_words:
+                print(word)
+        else:
+            print("This is your definition:\n" + term + ": " + definition)
 
 if __name__ == "__main__":
     main()
