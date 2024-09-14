@@ -1,5 +1,6 @@
-fancy_words = []
+import os
 
+fancy_words = []
 # Load 1000 words into a set from outside txt file
 def create_top_words():
     with open("top-words.txt", 'r') as file:
@@ -24,12 +25,26 @@ def main():
     # Create words
     top_words = create_top_words()
 
-    term = "Programming"
-    definition = "process of writing explicit instruction for a computer to follow"
+    # Clear screen to give clean interface
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    while True:
+        print("/nEnter term (or type 'exit' to quit):")
+        term = input(">>> ")
 
+        if term.lower() == 'exit':
+            break
+        
+        print("/nEnter definition for " + term)
+        definition = input(">>> ")
+
+    # Filter words
     if filter_words(definition, top_words) is False:
         print("The following words should not be used:")
         for word in fancy_words:
             print(word)
+    else:
+        print("This is your definition:\n" + term + ": " + definition)
 
-main()
+if __name__ == "__main__":
+    main()
