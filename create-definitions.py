@@ -1,11 +1,17 @@
 import os
+import string
 
 fancy_words = []
 filename = "saved_definitions.txt"
+symbols = symbols = string.punctuation
+bad_symbols = []
 # Load 1000 words into a set from outside txt file
 def create_top_words():
     with open("top-words.txt", 'r') as file:
         return set(word.strip().lower() for word in file.readlines())
+    
+def remove_punctuation(definition):
+    return ''.join([char for char in definition if char not in symbols])
 
 # Split definition
 def filter_words(definition, top_words):
@@ -59,7 +65,7 @@ def main():
         if term.lower() == 'exit':
             break
         
-        print("\nEnter definition for " + term + ".")
+        print("Enter definition for " + term + ".")
         definition = input(">>> ")
 
         # VALIDATION
@@ -70,6 +76,11 @@ def main():
         if not validate_word_count(definition):
             print("Definition cannot be greater than 100 words and less than 3.")
             continue
+        
+        # Remove punctuation
+        definition = remove_punctuation(definition)
+        ##for word in definition:
+            ##print(word)
 
         # Filter words
         if filter_words(definition, top_words) is False:
